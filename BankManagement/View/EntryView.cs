@@ -1,5 +1,7 @@
 ﻿
 
+using BankManagement.Utility;
+
 namespace BankManagement.View
 {
     public enum Entry
@@ -10,6 +12,8 @@ namespace BankManagement.View
     {
         public void Entry()
         {
+            CustomersData customersData = new CustomersData();
+            AccountData accountsData = new AccountData();
             while (true)
             {
                 Console.WriteLine("1.Login\n2.Signup\n3.Exit\nEnter your choice: ");
@@ -19,7 +23,7 @@ namespace BankManagement.View
                     int entryOption = int.Parse(option);
                     if (entryOption != 0 && entryOption <= Enum.GetValues(typeof(Entry)).Length)
                     {
-                        if (EntryOperations(entryOption))
+                        if (EntryOperations(entryOption, customersData, accountsData))
                         {
                             break;
                         }
@@ -37,17 +41,18 @@ namespace BankManagement.View
         }
         
 
-        public bool EntryOperations(int option)
+        public bool EntryOperations(int option, CustomersData customersData, AccountData accountsData)
         {
+
             switch (option)
             {
                 case 1:
                     LoginView loginView = new LoginView();
-                    loginView.Login();
+                    loginView.Login(customersData, accountsData);
                     return false;
                 case 2:
                     SignupView signupView = new SignupView();
-                    signupView.Signup();
+                    signupView.Signup(customersData, accountsData);
                     return false;
                 case 3:
                     Console.WriteLine("Closed");

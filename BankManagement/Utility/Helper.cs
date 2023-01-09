@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,19 @@ namespace BankManagement.Utility
             }
         }
 
+        public bool LoginValidation(string username, string password, CustomersData customersData)
+        {
+            foreach(Customer customer in customersData.CustomersList) {
+                if(customer.Username == username)
+                {
+                    if(customer.Password == password)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }     
         
     }
 }

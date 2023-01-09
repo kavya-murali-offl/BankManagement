@@ -1,4 +1,5 @@
 ﻿using BankManagement.Controller;
+using BankManagement.Models;
 using BankManagement.Utility;
 using BankManagement.View;
 using System;
@@ -8,7 +9,7 @@ namespace BankManagement.View
     public class SignupView
     {
 
-        public void Signup()
+        public void Signup(CustomersData customersData, AccountData accountData)
         {
             Validation validation = new Validation();
             string email;
@@ -40,10 +41,10 @@ namespace BankManagement.View
 
             VerifyPassword(password);
             name = GetName();
-            Helper helper = new Helper();
-            decimal initialAmount = helper.GetAmount();
-            CustomersData customerData = new CustomersData();
-            customerData.AddCustomer(userName, password, name, initialAmount);
+            AccountFactory accountFactory = new AccountFactory();
+            Account account = accountFactory.GetAccountByType("CURRENT");
+            customersData.AddCustomer(userName, password, name);
+            accountData.AddAccount(userName, account);
             Console.WriteLine("Account created Successfully.\n Please Login to contine");
 
         }

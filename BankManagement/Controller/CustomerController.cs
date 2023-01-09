@@ -6,10 +6,9 @@ namespace BankManagement.Controller
 {
     public class CustomerController
     {
-        public Customer GetUserDetails(string username)
+        public Customer GetUserDetails(string username, CustomersData customersData)
         {
-            CustomersData userData = new CustomersData();
-            return userData.GetDataByUsername(username);
+            return customersData.GetDataByUsername(username);
         }
     }
 }

@@ -2,6 +2,7 @@
 using BankManagement.Enums;
 using BankManagement.Model;
 using BankManagement.Models;
+using System.Security.Principal;
 
 namespace BankManagement.View
 {
@@ -16,10 +17,9 @@ namespace BankManagement.View
             }
             else
             {
-                Console.WriteLine("S.NO\t\tAccount Number\t\t\tBank Name\t\tBalance");
-                for (int i = 0; i < accounts.Count(); i++)
+                foreach (Account account in accounts)
                 {
-                    Console.WriteLine(i + 1 + ".  \t\t" + accounts[i].AccountID + "\t\t\t\t" + accounts[i].BankName + "\t\t" + accounts[i].Balance);
+                    Console.WriteLine(account);
                 }
             }
         }
@@ -54,63 +54,40 @@ namespace BankManagement.View
 
         public Account CreateAccount()
         {
-            Account acc;
+            AccountFactory accountFactory = new AccountFactory();
+            Account account;
             while (true)
             {
-                Console.WriteLine("Choose Account type: \n1. Current Account \n2. Savings Account");
+                Console.WriteLine("Choose Account type: \n1. Current Account \n2. Savings Account\n3. Go Back");
                 Console.WriteLine("Enter your choice: ");
-                acc = GetAccount();
-                if (GoBack())
+                try
                 {
-                    break;
+                    string option = Console.ReadLine();
+                    int entryOption = int.Parse(option);
+
+                    if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(AccountTypesCases)).Count())
+                    {
+                        string accountType = Enum.GetName(typeof(AccountTypesCases), entryOption - 1);
+                        account = accountFactory.GetAccountByType(accountType);
+                        if(account != null)
+                        {
+                            return account;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter proper input.");
+                    }
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine("Enter a valid option.");
                 }
             }
-            return acc;
-
         }
 
 
-        public Account GetAccount()
-        {
 
-            Account account = null;
-            
-            try
-            {
-                string option = Console.ReadLine();
-                int entryOption = int.Parse(option);
-
-                if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(AccountTypesCases)).Count())
-                {
-                    string accountType = Enum.GetName(typeof(AccountTypesCases), entryOption - 1);
-                    if (accountType == "CURRENT")
-                    {
-                        decimal amount = GetAmount();
-                        account = new CurrentAccount(amount);
-                    }
-                    else if (accountType == "SAVINGS")
-                    {
-                        decimal interest = 5.6m;
-                        Console.WriteLine("Interest Rate will be " + interest);
-                        account = new SavingsAccount(interest);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Enter proper input.");
-                }
-            }
-            catch (Exception error)
-            {
-                Console.WriteLine("Enter a valid option.");
-            }
-            return account; 
-        }
-        //    public int getAccountNumber()
-        //    {
-        //        Console.WriteLine("Enter Account Number: ");
-        //        return sc.nextInt();
-        //    }
         public bool GoBack()
         {
             Console.WriteLine("Press 0 to go back to dashboard");
@@ -132,11 +109,6 @@ namespace BankManagement.View
                 Console.WriteLine("Enter a valid option");
                 return false;
             }
-        }
-        public decimal GetAmount()
-        {
-            Console.WriteLine("Enter Amount ");
-            return Decimal.Parse(Console.ReadLine());
         }
 
         public void SuccessMessage(string message)

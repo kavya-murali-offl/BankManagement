@@ -11,18 +11,17 @@ namespace BankManagement.View
 
         public LoginView() { }
 
-        public void Login()
+        public void Login(CustomersData customersData, AccountData accountData)
         {
             bool isValidated;
             string input = GetUserName();
             String password = GetPassword();
-            isValidated = ValidateLogin(input, password);
+            isValidated = ValidateLogin(input, password, customersData);
 
             if (isValidated)
             {
                 ProfileController profile = new ProfileController();
-                profile.GetUserDetails(input);
-                AccountData accountData = new AccountData();
+                profile.GetUserDetails(input, customersData);
                 profile.Accounts = accountData.GetBankDetails(profile.UserName);
                 DashboardView dashboard = new DashboardView();
                 dashboard.ViewDashboard(profile, accountData);
@@ -41,20 +40,21 @@ namespace BankManagement.View
             return Console.ReadLine();
         }
 
-        public bool ValidateLogin(string username, string password)
+        public bool ValidateLogin(string username, string password, CustomersData customersData)
         {
-            //Helpers helpers = new Helpers();
 
-            //if (helpers.LoginValidation(username, password))
-            //{
-            //    Console.WriteLine("Logged in successfully");
-            //    return true;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Invalid login credentials. Try Again!");
-            //}
-            return true;
+            Helper helpers = new Helper();
+
+            if (helpers.LoginValidation(username, password, customersData))
+            {
+                Console.WriteLine("Logged in successfully");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Invalid login credentials. Try Again!");
+            }
+            return false;
 
         }
     }

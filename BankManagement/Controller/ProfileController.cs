@@ -27,15 +27,12 @@ namespace BankManagement.Controller
 
         public IList<Account> Accounts
         {
-            get { return Customer.Accounts; }
-            set { Customer.Accounts = value; }
-
+            get; set;
         }
 
-        public void GetUserDetails(String input)
+        public void GetUserDetails(String input, CustomersData customersData)
         {
-            CustomersData userData = new CustomersData();
-            Customer = userData.GetDataByUsername(input);
+            Customer = customersData.GetDataByUsername(input);
         }
 
     }

@@ -13,8 +13,6 @@ namespace BankManagement.Models
 
         public decimal Balance { get; set; }
 
-        public BankName BankName { get; set; }
-
         public Guid AccountID { get; set; } 
         
         public IList<Transaction> Transactions { get; set; }

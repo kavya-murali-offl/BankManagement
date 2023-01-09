@@ -1,4 +1,5 @@
-﻿using BankManagement.Models;
+﻿using BankManagement.Enums;
+using BankManagement.Models;
 using System;
 
 namespace BankManagement.Model
@@ -7,9 +8,7 @@ namespace BankManagement.Model
     {
         private readonly decimal MIN_BALANCE = 5000;
         private decimal Charges = 200;
-        public CurrentAccount(decimal initialAmount) {
-            Balance = initialAmount;
-        }
+        private readonly AccountTypesCases ACCOUNT_TYPE = AccountTypesCases.SAVINGS;
 
         public void Deposit(decimal amount)
         {
@@ -32,7 +31,14 @@ namespace BankManagement.Model
             return true;
 
         }
-        public decimal MinimumBalance { get; }
+        public decimal MinimumBalance { get { return MIN_BALANCE; } }
+
+        public AccountTypesCases AccountType { get { return ACCOUNT_TYPE; } }
+
+        public override string ToString()
+        {
+            return "Account Type: Current\n"+ "Account ID: " + AccountID + "\nBalance: " + Balance + "\nMinimum Balance: " + MinimumBalance+ "\n========================================\n";
+        }
 
     }
 }

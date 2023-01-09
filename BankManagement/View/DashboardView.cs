@@ -13,7 +13,7 @@ namespace BankManagement.View
         {
             while (true)
             {
-                Console.WriteLine("\n1. Profile\n2. Create Account\n3. List Accounts\n 3. Go to Account\n4. Sign out\nEnter your choice: ");
+                Console.WriteLine("\n1. Profile\n2. Create Account\n3. List Accounts\n 4. Go to Account\n5. Sign out\nEnter your choice: ");
                 try
                 {
                     string option = Console.ReadLine();
@@ -21,7 +21,6 @@ namespace BankManagement.View
                     if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(DashboardCases)).Count())
                     {
                         string operation = Enum.GetName(typeof(DashboardCases), entryOption - 1);
-                        Console.WriteLine("/"+operation+"/");
                         if (DashboardOperations(operation, profileController, accountData))
                         {
                             break;
@@ -55,10 +54,6 @@ namespace BankManagement.View
                     accountController.CreateAccount(profileController, accountData);
                     return false;
                 case "LIST_ACCOUNTS":
-                    //foreach(Account ac in profileController.Accounts)
-                    //{
-                    //    Console.WriteLine(ac);
-                    //}
                     accountController.ViewAccounts(profileController, accountData);
                     return false;
                 case "GO_TO_ACCOUNT":
@@ -68,6 +63,7 @@ namespace BankManagement.View
                     Console.WriteLine(transactionAccount);
                     return false;
                 case "SIGN_OUT":
+                    Console.WriteLine(".....LOGGING YOU OUT.....");
                     return true;
                 default:
                     Console.WriteLine("Enter a valid option.\n");

@@ -8,18 +8,12 @@ namespace BankManagement.Models
 {
     public class Customer
     {
-        public Customer()
-        {
-            Accounts = new List<Account>();
-        }
 
         public Customer(string username, string password, string? name)
         {
             Username= username;
             Password= password;
             Name = name;
-            //PhoneNumber = phoneNumber;
-            Accounts = new List<Account>();
         }
 
         public string Username { get; set; }
@@ -29,17 +23,9 @@ namespace BankManagement.Models
         
        public string Password {  get; set; }    
         
-        public IList<Account> Accounts { get; set; }
-
-        public void ViewAllAccounts()
-        {
-            foreach(Account account in Accounts) {
-                account.ToString();
-            }
-        }
         public override string ToString()
         {
-            return "Name: " + Name + "\n Username: " + Username + "Accounts: \n" + Accounts.Count();
+            return "Name: " + Name + "\n Username: " + Username;
         }
     }
 }

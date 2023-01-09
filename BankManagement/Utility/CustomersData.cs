@@ -11,13 +11,6 @@ namespace BankManagement.Utility
         public CustomersData()
         {
             CustomersList = new List<Customer>();   
-            Customer customer1 = new Customer("kav", "pass", "Kavya");
-            customer1.Accounts = new List<Account>();
-            customer1.Accounts.Add(new CurrentAccount(300));
-            Customer customer2 = new Customer("test", "pass", "Test");
-            CustomersList.Add(customer1);
-            CustomersList.Add(customer2);
-            ViewCustomers();
             
         }
         public Customer GetDataByUsername(string username)
@@ -32,10 +25,9 @@ namespace BankManagement.Utility
             return null;
         }
 
-        public void AddCustomer(string username, string password, string? name, decimal initialAmount)
+        public void AddCustomer(string username, string password, string? name)
         {
             Customer customer = new Customer(username, password, name);
-            customer.Accounts.Add(new CurrentAccount(initialAmount));
             CustomersList.Add(customer);
         }
 

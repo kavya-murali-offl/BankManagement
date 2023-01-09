@@ -8,37 +8,29 @@ namespace BankManagement.Utility
     public class AccountData
     {
         public AccountData() {
-            Account currentAccount1 = new CurrentAccount(5000);
-            currentAccount1.AccountID = Guid.NewGuid();
-            currentAccount1.BankName = BankName.HDFC;
             IDictionary<string, IList<Account>> AccountsDict = new Dictionary<string, IList<Account>>();
-            List<Account> userAccountsList = new List<Account>();
-            userAccountsList.Add(currentAccount1);
-            AccountsDict.Add("kav", userAccountsList);
-            Accounts = AccountsDict;
+            AllUsersAccounts = AccountsDict;
         }
 
         public IList<Account> GetBankDetails(string username)
         {
-            if (Accounts.ContainsKey(username)) return Accounts[username];
+            if (AllUsersAccounts.ContainsKey(username)) return AllUsersAccounts[username];
             else return null;
         }
 
         public void AddAccount(string username, Account account)
         {
-            if (Accounts.ContainsKey(username)) { 
-                Accounts[username].Add(account);
+            if (AllUsersAccounts.ContainsKey(username)) {
+                AllUsersAccounts[username].Add(account);
             }
             else
             {
-                IDictionary<string, IList<Account>> userAccounts = new Dictionary<string, IList<Account>>();
-                IList<Account> accounts = new List<Account>();
-                accounts.Add(account);
-                userAccounts.Add(username, accounts);
-                Accounts = userAccounts;
+                IList<Account> userAccounts = new List<Account>();
+                userAccounts.Add(account);
+                AllUsersAccounts.Add(username, userAccounts);
             }
         }
 
-        public IDictionary<string, IList<Account>> Accounts { get; set; }
+        public IDictionary<string, IList<Account>> AllUsersAccounts { get; set; }
     }
 }
