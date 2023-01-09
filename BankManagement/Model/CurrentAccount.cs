@@ -19,9 +19,9 @@ namespace BankManagement.Model
         {
             bool validTransaction = CheckMinimumBalance(amount);
             if (validTransaction)
-                base.Withdraw(amount);
+                Withdraw(amount);
             else
-                base.Withdraw(amount - Charges);
+                Withdraw(amount - Charges);
         }
 
         public bool CheckMinimumBalance(decimal amount)

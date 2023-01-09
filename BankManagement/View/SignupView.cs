@@ -1,8 +1,6 @@
 ﻿using BankManagement.Controller;
 using BankManagement.Models;
 using BankManagement.Utility;
-using BankManagement.View;
-using System;
 
 namespace BankManagement.View
 {
@@ -47,7 +45,6 @@ namespace BankManagement.View
             customersController.AddCustomer(userName, password, name);
             accountsController.AddAccount(userName, account);
             Console.WriteLine("Account created Successfully.\n Please Login to contine");
-
         }
 
         private string GetUsername()
@@ -62,13 +59,11 @@ namespace BankManagement.View
             return Console.ReadLine();
         }
 
-
         private string GetRePassword()
         {
             Console.WriteLine("Re-enter password: ");
             return Console.ReadLine();
         }
-
 
         public string GetPassword()
         {

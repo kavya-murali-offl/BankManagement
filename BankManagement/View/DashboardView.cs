@@ -33,7 +33,6 @@ namespace BankManagement.View
                 }
                 catch (Exception error)
                 {
-                    Console.WriteLine(error);
                     Console.WriteLine("Enter a valid option. Try Again!(view dashboard)");
                 }
             }
@@ -42,7 +41,7 @@ namespace BankManagement.View
 
         private bool DashboardOperations(string operation, ProfileController profileController, AccountsController accountController)
         {
-            TransactionController transactionController = new TransactionController();
+            TransactionsView transactionView = new TransactionsView();
             switch (operation)
             {
                 case "PROFILE":
@@ -57,7 +56,7 @@ namespace BankManagement.View
                     return false;
                 case "GO_TO_ACCOUNT":
                     Account transactionAccount = ChooseAccountForTransaction(profileController, accountController);
-                    transactionController.GoToAccount(transactionAccount, profileController);
+                    transactionView.GoToAccount(transactionAccount, profileController);
                     return false;
                 case "SIGN_OUT":
                     Console.WriteLine(".....LOGGING YOU OUT.....");
@@ -71,10 +70,19 @@ namespace BankManagement.View
 
         public Account ChooseAccountForTransaction(ProfileController profileController, AccountsController accountController)
         {
-            string option = Console.ReadLine();
-            int accountIndex = int.Parse(option);
+            IList<Account> accounts = accountController.GetAccountsByUsername(profileController);
+            ListAccountIDs(accounts);
+            string index = Console.ReadLine();
+            int accountIndex = int.Parse(index);
             return accountController.GetAccountByIndex(accountIndex, profileController);
+        }
 
+        public void ListAccountIDs(IList<Account> accounts)
+        {
+            for(int i = 1; i<accounts.Count()+1;i++)
+            {
+                Console.WriteLine(i + ". " + accounts[i-1].AccountID);
+            }
         }
 
     }

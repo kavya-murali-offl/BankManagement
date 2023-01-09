@@ -20,7 +20,6 @@ namespace BankManagement.Controller
         }
 
         public AccountData AccountData { get; set; }    
-        public Account Account { get; set; }
 
         public AccountsView AccountsView { get; set; }
 
@@ -41,7 +40,6 @@ namespace BankManagement.Controller
             return profile.Accounts[index - 1];
         }
 
-
         public void CreateAccount(ProfileController profile)
         {
             Account account = AccountsView.CreateAccount();
@@ -57,6 +55,5 @@ namespace BankManagement.Controller
         {
             AccountData.AddAccount(userName, account);
         }
-
 }
 }

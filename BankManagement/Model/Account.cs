@@ -32,7 +32,7 @@ namespace BankManagement.Models
                 throw new ArgumentException ("Insufficient Balance");
         }
 
-        public void transfer(decimal amount, Account transferAccount)
+        public void Transfer(decimal amount, Account transferAccount)
         {
             Withdraw(amount);
             transferAccount.Deposit(amount);

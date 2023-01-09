@@ -35,5 +35,17 @@ namespace BankManagement.Controller
             Customer = customersController.GetUserDetails(input);
         }
 
+        public Account GetAccountByID(string id)
+        {
+            foreach(Account account in Accounts)
+            {
+                if(account.AccountID == new Guid(id))
+                {
+                    return account;
+                }
+            }
+            return null;
+        }
+
     }
 }
