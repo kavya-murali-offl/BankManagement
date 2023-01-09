@@ -12,7 +12,7 @@ namespace BankManagement.Utility
             AllUsersAccounts = AccountsDict;
         }
 
-        public IList<Account> GetBankDetails(string username)
+        public IList<Account> GetAccountsByUsername(string username)
         {
             if (AllUsersAccounts.ContainsKey(username)) return AllUsersAccounts[username];
             else return null;

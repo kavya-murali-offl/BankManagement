@@ -30,9 +30,9 @@ namespace BankManagement.Controller
             get; set;
         }
 
-        public void GetUserDetails(String input, CustomersData customersData)
+        public void GetUserDetails(String input, CustomersController customersController)
         {
-            Customer = customersData.GetDataByUsername(input);
+            Customer = customersController.GetUserDetails(input);
         }
 
     }

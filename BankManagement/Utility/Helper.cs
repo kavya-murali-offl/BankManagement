@@ -1,4 +1,5 @@
-﻿using BankManagement.Models;
+﻿using BankManagement.Controller;
+using BankManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,10 @@ namespace BankManagement.Utility
             }
         }
 
-        public bool LoginValidation(string username, string password, CustomersData customersData)
+        public bool LoginValidation(string username, string password, CustomersController customersController)
         {
-            foreach(Customer customer in customersData.CustomersList) {
+            IList<Customer> customers = customersController.GetAllCustomers();
+            foreach(Customer customer in customers) {
                 if(customer.Username == username)
                 {
                     if(customer.Password == password)
@@ -39,7 +41,12 @@ namespace BankManagement.Utility
                 }
             }
             return false;
-        }     
+        }    
+        
+        public bool CheckUniqueUserName(string userName, CustomersController customersController)
+        {
+            return customersController.GetUserDetails(userName) == null ? true : false;
+        }
         
     }
 }

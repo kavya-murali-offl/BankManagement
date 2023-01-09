@@ -7,7 +7,9 @@ namespace BankManagement.Models
     public abstract class Account
     {
         public Account() { 
-             AccountID = Guid.NewGuid();    
+             AccountID = Guid.NewGuid();
+             IList<Transaction> transactions = new List<Transaction>();
+             Transactions = transactions;
              Balance = 0;
         }
 

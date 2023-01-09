@@ -1,5 +1,6 @@
 ﻿
 
+using BankManagement.Controller;
 using BankManagement.Utility;
 
 namespace BankManagement.View
@@ -12,8 +13,8 @@ namespace BankManagement.View
     {
         public void Entry()
         {
-            CustomersData customersData = new CustomersData();
-            AccountData accountsData = new AccountData();
+            CustomersController customersController = new CustomersController();
+            AccountsController accountsController = new AccountsController();
             while (true)
             {
                 Console.WriteLine("1.Login\n2.Signup\n3.Exit\nEnter your choice: ");
@@ -23,7 +24,7 @@ namespace BankManagement.View
                     int entryOption = int.Parse(option);
                     if (entryOption != 0 && entryOption <= Enum.GetValues(typeof(Entry)).Length)
                     {
-                        if (EntryOperations(entryOption, customersData, accountsData))
+                        if (EntryOperations(entryOption, customersController, accountsController))
                         {
                             break;
                         }
@@ -41,18 +42,18 @@ namespace BankManagement.View
         }
         
 
-        public bool EntryOperations(int option, CustomersData customersData, AccountData accountsData)
+        public bool EntryOperations(int option, CustomersController customersController, AccountsController accountsController)
         {
 
             switch (option)
             {
                 case 1:
                     LoginView loginView = new LoginView();
-                    loginView.Login(customersData, accountsData);
+                    loginView.Login(customersController, accountsController);
                     return false;
                 case 2:
                     SignupView signupView = new SignupView();
-                    signupView.Signup(customersData, accountsData);
+                    signupView.Signup(customersController, accountsController);
                     return false;
                 case 3:
                     Console.WriteLine("Closed");

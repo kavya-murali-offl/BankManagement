@@ -19,12 +19,5 @@ namespace BankManagement.Utility
                 return rePassword.Equals(password);
         }
 
-        public bool CheckUnique(string input, string field)
-        {
-            return true;
-        }
-
-       
-
     }
 }

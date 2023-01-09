@@ -9,7 +9,6 @@ namespace BankManagement.Controller
 {
     public class TransactionController
     {
-
         public void GoToAccount(Account account, ProfileController profile)
         {
             while (true)
@@ -49,7 +48,6 @@ namespace BankManagement.Controller
 
         public bool TransactionOperations(string option, Account account, ProfileController profile)
         {
-            AccountController accountController = new AccountController();
             Helper helper = new Helper();
             switch (option)
             {
@@ -57,10 +55,10 @@ namespace BankManagement.Controller
                     TransactionController transactionController = new TransactionController();
                     decimal amount = helper.GetAmount();
                     transactionController.Transact(amount, TransactionType.DEPOSIT, account);
-                    accountController.Deposit(profile);
+                    //accountController.Deposit(profile);
                     return false;
                 case "WITHDRAW":
-                    accountController.Withdraw(profile);
+                    //accountController.Withdraw(profile);
                     return false;
 
                 case "VIEW_STATEMENT":

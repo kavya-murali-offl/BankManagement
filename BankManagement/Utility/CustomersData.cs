@@ -25,9 +25,8 @@ namespace BankManagement.Utility
             return null;
         }
 
-        public void AddCustomer(string username, string password, string? name)
+        public void AddCustomer(Customer customer)
         {
-            Customer customer = new Customer(username, password, name);
             CustomersList.Add(customer);
         }
 

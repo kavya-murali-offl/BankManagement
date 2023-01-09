@@ -9,7 +9,7 @@ namespace BankManagement.View
     public class DashboardView
     {
 
-        public void ViewDashboard(ProfileController profileController, AccountData accountData)
+        public void ViewDashboard(ProfileController profileController, AccountsController accountsController)
         {
             while (true)
             {
@@ -21,7 +21,7 @@ namespace BankManagement.View
                     if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(DashboardCases)).Count())
                     {
                         string operation = Enum.GetName(typeof(DashboardCases), entryOption - 1);
-                        if (DashboardOperations(operation, profileController, accountData))
+                        if (DashboardOperations(operation, profileController, accountsController))
                         {
                             break;
                         }
@@ -40,9 +40,8 @@ namespace BankManagement.View
         }
 
 
-        private bool DashboardOperations(string operation, ProfileController profileController, AccountData accountData)
+        private bool DashboardOperations(string operation, ProfileController profileController, AccountsController accountController)
         {
-            AccountController accountController = new AccountController();
             TransactionController transactionController = new TransactionController();
             switch (operation)
             {
@@ -51,16 +50,14 @@ namespace BankManagement.View
                     profileView.GetProfileDetails(profileController);
                     return false;
                 case "CREATE_ACCOUNT":
-                    accountController.CreateAccount(profileController, accountData);
+                    accountController.CreateAccount(profileController);
                     return false;
                 case "LIST_ACCOUNTS":
-                    accountController.ViewAccounts(profileController, accountData);
+                    accountController.ViewAccounts(profileController);
                     return false;
                 case "GO_TO_ACCOUNT":
-                    accountController.GetAccounts(profileController, accountData);
                     Account transactionAccount = ChooseAccountForTransaction(profileController, accountController);
                     transactionController.GoToAccount(transactionAccount, profileController);
-                    Console.WriteLine(transactionAccount);
                     return false;
                 case "SIGN_OUT":
                     Console.WriteLine(".....LOGGING YOU OUT.....");
@@ -72,7 +69,7 @@ namespace BankManagement.View
         }
 
 
-        public Account ChooseAccountForTransaction(ProfileController profileController, AccountController accountController)
+        public Account ChooseAccountForTransaction(ProfileController profileController, AccountsController accountController)
         {
             string option = Console.ReadLine();
             int accountIndex = int.Parse(option);

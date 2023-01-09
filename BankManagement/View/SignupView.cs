@@ -9,9 +9,10 @@ namespace BankManagement.View
     public class SignupView
     {
 
-        public void Signup(CustomersData customersData, AccountData accountData)
+        public void Signup(CustomersController customersController, AccountsController accountsController)
         {
-            Validation validation = new Validation();
+            Validation validation= new Validation();
+            Helper helper = new Helper();
             string email;
             string password;
             string name;
@@ -22,7 +23,7 @@ namespace BankManagement.View
                 userName = GetUsername();
                 if (validation.CheckEmpty(userName))
                 {
-                    if (validation.CheckUnique(userName, "Username"))
+                    if (helper.CheckUniqueUserName(userName, customersController))
                     {
                         break;
                     }
@@ -43,8 +44,8 @@ namespace BankManagement.View
             name = GetName();
             AccountFactory accountFactory = new AccountFactory();
             Account account = accountFactory.GetAccountByType("CURRENT");
-            customersData.AddCustomer(userName, password, name);
-            accountData.AddAccount(userName, account);
+            customersController.AddCustomer(userName, password, name);
+            accountsController.AddAccount(userName, account);
             Console.WriteLine("Account created Successfully.\n Please Login to contine");
 
         }

@@ -11,20 +11,20 @@ namespace BankManagement.View
 
         public LoginView() { }
 
-        public void Login(CustomersData customersData, AccountData accountData)
+        public void Login(CustomersController customersController, AccountsController accountController)
         {
             bool isValidated;
             string input = GetUserName();
             String password = GetPassword();
-            isValidated = ValidateLogin(input, password, customersData);
+            isValidated = ValidateLogin(input, password, customersController);
 
             if (isValidated)
             {
                 ProfileController profile = new ProfileController();
-                profile.GetUserDetails(input, customersData);
-                profile.Accounts = accountData.GetBankDetails(profile.UserName);
+                profile.GetUserDetails(input, customersController);
+                profile.Accounts = accountController.GetAccountsByUsername(profile);
                 DashboardView dashboard = new DashboardView();
-                dashboard.ViewDashboard(profile, accountData);
+                dashboard.ViewDashboard(profile, accountController);
             }
         }
 
@@ -40,12 +40,12 @@ namespace BankManagement.View
             return Console.ReadLine();
         }
 
-        public bool ValidateLogin(string username, string password, CustomersData customersData)
+        public bool ValidateLogin(string username, string password, CustomersController customersController)
         {
 
             Helper helpers = new Helper();
 
-            if (helpers.LoginValidation(username, password, customersData))
+            if (helpers.LoginValidation(username, password, customersController))
             {
                 Console.WriteLine("Logged in successfully");
                 return true;
