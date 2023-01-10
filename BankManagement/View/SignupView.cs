@@ -6,7 +6,6 @@ namespace BankManagement.View
 {
     public class SignupView
     {
-
         public void Signup(CustomersController customersController, AccountsController accountsController)
         {
             Validation validation= new Validation();
@@ -40,10 +39,9 @@ namespace BankManagement.View
 
             VerifyPassword(password);
             name = GetName();
-            AccountFactory accountFactory = new AccountFactory();
-            Account account = accountFactory.GetAccountByType("CURRENT");
+            Account account = AccountFactory.GetAccountByType("CURRENT");
             customersController.AddCustomer(userName, password, name);
-            accountsController.AddAccount(userName, account);
+            accountsController.AddAccountToUserName(userName, account);
             Console.WriteLine("Account created Successfully.\n Please Login to contine");
         }
 

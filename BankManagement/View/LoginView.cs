@@ -14,14 +14,14 @@ namespace BankManagement.View
         public void Login(CustomersController customersController, AccountsController accountController)
         {
             bool isValidated;
-            string input = GetUserName();
+            string userName = GetUserName();
             String password = GetPassword();
-            isValidated = ValidateLogin(input, password, customersController);
+            isValidated = ValidateLogin(userName, password, customersController);
 
             if (isValidated)
             {
                 ProfileController profile = new ProfileController();
-                profile.GetUserDetails(input, customersController);
+                profile.Customer = customersController.GetUserDetails(userName);
                 profile.Accounts = accountController.GetAccountsByUsername(profile);
                 DashboardView dashboard = new DashboardView();
                 dashboard.ViewDashboard(profile, accountController);

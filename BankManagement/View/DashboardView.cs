@@ -6,14 +6,26 @@ using BankManagement.Utility;
 
 namespace BankManagement.View
 {
+    public enum DashboardCases
+    {
+        PROFILE,
+        CREATE_ACCOUNT,
+        LIST_ACCOUNTS, GO_TO_ACCOUNT, SIGN_OUT
+    }
+
     public class DashboardView
     {
-
         public void ViewDashboard(ProfileController profileController, AccountsController accountsController)
         {
             while (true)
             {
-                Console.WriteLine("\n1. Profile\n2. Create Account\n3. List Accounts\n 4. Go to Account\n5. Sign out\nEnter your choice: ");
+                Console.WriteLine("\n" +
+                    "1. Profile\n" +
+                    "2. Create Account\n" +
+                    "3. List Accounts\n" +
+                    "4. Go to Account\n" +
+                    "5. Sign out\n" +
+                    "Enter your choice: \n");
                 try
                 {
                     string option = Console.ReadLine();
@@ -33,11 +45,10 @@ namespace BankManagement.View
                 }
                 catch (Exception error)
                 {
-                    Console.WriteLine("Enter a valid option. Try Again!(view dashboard)");
+                    Console.WriteLine("Enter a valid option. Try Again!");
                 }
             }
         }
-
 
         private bool DashboardOperations(string operation, ProfileController profileController, AccountsController accountController)
         {
