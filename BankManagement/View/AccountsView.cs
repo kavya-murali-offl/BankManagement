@@ -66,7 +66,7 @@ namespace BankManagement.View
 
                     if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(AccountTypes)).Count())
                     {
-                        string accountType = Enum.GetName(typeof(AccountTypes), entryOption - 1);
+                        AccountTypes accountType = (AccountTypes)entryOption + 1;
                         account = AccountFactory.GetAccountByType(accountType);
                         if(account != null)
                         {

@@ -39,19 +39,6 @@ namespace BankManagement.View
             Console.WriteLine("Name: " + profileController.Name);
             Console.WriteLine("UserName: " + profileController.UserName);
             Console.WriteLine("Password: " + profileController.Password);
-            //        double incoming, expense;
-            //    totalDeposit = profileController.getTotalExpense(profileController.getUserName());
-            //    totalWithdraw = profileController.getTotalIncoming(profileController.getUserName());
-            //    Console.WriteLine("Total Incoming: "+incoming+"\t\t\tTotal Expense: "+expense);
-            //        if(incoming-expense > 0){
-            //        Console.WriteLine("Your expenses are lower than your incomings by Rs." + (incoming - expense));
-            //    }else if(incoming-expense < 0){
-            //        Console.WriteLine("Your expenses are higher than your incomings by Rs. " + (expense - incoming));
-            //    }else{
-            //        Console.WriteLine("Your expenses and incomings are balanced");
-            //    }
-            //    Console.WriteLine("\n---------------------------------------------\n");
-            //}
         }
     }
 }

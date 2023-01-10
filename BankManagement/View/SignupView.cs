@@ -1,4 +1,6 @@
 ﻿using BankManagement.Controller;
+using BankManagement.Enums;
+using BankManagement.Model;
 using BankManagement.Models;
 using BankManagement.Utility;
 
@@ -39,7 +41,7 @@ namespace BankManagement.View
 
             VerifyPassword(password);
             name = GetName();
-            Account account = AccountFactory.GetAccountByType("CURRENT");
+            Account account = AccountFactory.GetAccountByType(AccountTypes.CURRENT);
             customersController.AddCustomer(userName, password, name);
             accountsController.AddAccountToUserName(userName, account);
             Console.WriteLine("Account created Successfully.\n Please Login to contine");

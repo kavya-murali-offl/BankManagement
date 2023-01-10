@@ -32,7 +32,7 @@ namespace BankManagement.View
                     int entryOption = int.Parse(option);
                     if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(DashboardCases)).Count())
                     {
-                        string operation = Enum.GetName(typeof(DashboardCases), entryOption - 1);
+                        DashboardCases operation = (DashboardCases)entryOption-1;
                         if (DashboardOperations(operation, profileController, accountsController))
                         {
                             break;
@@ -50,26 +50,26 @@ namespace BankManagement.View
             }
         }
 
-        private bool DashboardOperations(string operation, ProfileController profileController, AccountsController accountController)
+        private bool DashboardOperations(DashboardCases operation, ProfileController profileController, AccountsController accountController)
         {
             TransactionsView transactionView = new TransactionsView();
             switch (operation)
             {
-                case "PROFILE":
+                case DashboardCases.PROFILE:
                     ProfileView profileView = new ProfileView();
                     profileView.GetProfileDetails(profileController);
                     return false;
-                case "CREATE_ACCOUNT":
+                case DashboardCases.CREATE_ACCOUNT:
                     accountController.CreateAccount(profileController);
                     return false;
-                case "LIST_ACCOUNTS":
+                case DashboardCases.LIST_ACCOUNTS:
                     accountController.ViewAccounts(profileController);
                     return false;
-                case "GO_TO_ACCOUNT":
+                case DashboardCases.GO_TO_ACCOUNT:
                     Account transactionAccount = ChooseAccountForTransaction(profileController, accountController);
                     transactionView.GoToAccount(transactionAccount, profileController);
                     return false;
-                case "SIGN_OUT":
+                case DashboardCases.SIGN_OUT:
                     Console.WriteLine(".....LOGGING YOU OUT.....");
                     return true;
                 default:

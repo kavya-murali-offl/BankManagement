@@ -26,7 +26,7 @@ namespace BankManagement.View
                     int entryOption = int.Parse(option);
                     if (entryOption != 0 && entryOption <= Enum.GetNames(typeof(AccountCases)).Count())
                     {
-                        string operation = Enum.GetName(typeof(AccountCases), entryOption - 1);
+                        AccountCases operation = (AccountCases)entryOption - 1;
                         if (TransactionOperations(operation, account, profile))
                         {
                             break;
@@ -44,36 +44,36 @@ namespace BankManagement.View
             }
         }
 
-        public bool TransactionOperations(string option, Account account, ProfileController profile)
+        public bool TransactionOperations(AccountCases option, Account account, ProfileController profile)
         {
             Helper helper = new Helper();
             TransactionController transactionController = new TransactionController();  
             decimal amount;
             switch (option)
             {
-                case "DEPOSIT":
+                case AccountCases.DEPOSIT:
                     bool isDeposited = transactionController.Deposit(account);
                     if (isDeposited) Console.WriteLine("Deposit succesful");
                     else Console.WriteLine("Something went wrong.");
                     return true;
-                case "WITHDRAW":
+                case AccountCases.WITHDRAW:
                     bool isWithdrawn = transactionController.Withdraw(account);
                     if (isWithdrawn) Console.WriteLine("Withdraw succesful");
                     else Console.WriteLine("Something went wrong.");
                     return true;
-                case "TRANSFER":
+                case AccountCases.TRANSFER:
                     string transferAccountID = GetTransferAccountID();
                     bool isTransferred = transactionController.Transfer(account, transferAccountID, profile);
                     if (isTransferred) Console.WriteLine("Transfer succesful");
                     else Console.WriteLine("Something went wrong.");
                     return true;
-                case "VIEW_STATEMENT":
+                case AccountCases.VIEW_STATEMENT:
                     ViewStatement(transactionController, account);
                     return false;
-                case "PRINT_STATEMENT":
+                case AccountCases.PRINT_STATEMENT:
                     Printer.PrintStatement(account.Transactions);
                     return false;
-                case "BACK":
+                case AccountCases.BACK:
                     return true;
                 default:
                     Console.WriteLine("Invalid option");
@@ -102,7 +102,11 @@ namespace BankManagement.View
             IList<Transaction> transactions = transactionController.GetAllTransactions(account);
             if (transactions.Count > 0)
             {
-                foreach (Transaction transaction in transactions) { Console.WriteLine(transaction); }
+                foreach (Transaction transaction in transactions) { Console.WriteLine(transaction+"\n======================================================"); }
+            }
+            else
+            {
+                Console.WriteLine("No transactions found");
             }
         }
 

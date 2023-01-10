@@ -5,7 +5,7 @@ using BankManagement.Utility;
 
 namespace BankManagement.View
 {
-    public enum Entry
+    public enum EntryOptions
     {
         LOGIN, SIGNUP, EXIT
     }
@@ -13,6 +13,7 @@ namespace BankManagement.View
     {
         public void Entry()
         {
+            
             CustomersController customersController = new CustomersController();
             AccountsController accountsController = new AccountsController();
             while (true)
@@ -22,9 +23,10 @@ namespace BankManagement.View
                 {
                     string? option = Console.ReadLine();
                     int entryOption = int.Parse(option);
-                    if (entryOption != 0 && entryOption <= Enum.GetValues(typeof(Entry)).Length)
+                    if (entryOption != 0 && entryOption <= Enum.GetValues(typeof(EntryOptions)).Length)
                     {
-                        if (EntryOperations(entryOption, customersController, accountsController))
+                        EntryOptions entry = (EntryOptions)entryOption - 1;
+                        if (EntryOperations(entry, customersController, accountsController))
                         {
                             break;
                         }
@@ -42,20 +44,20 @@ namespace BankManagement.View
         }
         
 
-        public bool EntryOperations(int option, CustomersController customersController, AccountsController accountsController)
+        public bool EntryOperations(EntryOptions option, CustomersController customersController, AccountsController accountsController)
         {
 
             switch (option)
             {
-                case 1:
+                case EntryOptions.LOGIN:
                     LoginView loginView = new LoginView();
                     loginView.Login(customersController, accountsController);
                     return false;
-                case 2:
+                case EntryOptions.SIGNUP:
                     SignupView signupView = new SignupView();
                     signupView.Signup(customersController, accountsController);
                     return false;
-                case 3:
+                case EntryOptions.EXIT:
                     Console.WriteLine("Closed");
                     return true;
                 default:
