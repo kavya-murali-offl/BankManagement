@@ -13,6 +13,7 @@ namespace BankManagement.Model
         {
             TransactionID = TransactionID + 1;
             TransactionType = transactionType;
+            Balance = balance;
             Amount = amount;
             _recordedOn = DateTime.Now;
         }
