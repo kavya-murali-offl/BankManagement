@@ -8,8 +8,10 @@ namespace BankManagement.Utility
         public CustomersData()
         {
             CustomersList = new List<Customer>();   
-            
         }
+
+        public IList<Customer> CustomersList { get; set; }
+
         public Customer GetDataByUsername(string username)
         {
             foreach (Customer customer in CustomersList)
@@ -34,6 +36,5 @@ namespace BankManagement.Utility
             }
         }
 
-        public IList<Customer> CustomersList { get; set; }
     }
 }

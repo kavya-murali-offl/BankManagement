@@ -47,6 +47,5 @@ namespace BankManagement.Utility
         {
             return customersController.GetUserDetails(userName) == null ? true : false;
         }
-        
     }
 }
