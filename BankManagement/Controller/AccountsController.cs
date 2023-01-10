@@ -1,12 +1,8 @@
-﻿using BankManagement.Models;
+﻿using System;
+using BankManagement.Models;
 using BankManagement.Utility;
 using BankManagement.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BankManagement.Controller
 {
@@ -14,16 +10,34 @@ namespace BankManagement.Controller
     {
         public AccountsController()
         {
-            AccountData accountData = new AccountData();
-            AccountData = accountData;
+            AccountData = new AccountData(); ;
             AccountsView = new AccountsView();
         }
 
-        public AccountData AccountData { get; set; }    
+        public AccountData AccountData { get; set; }
 
         public AccountsView AccountsView { get; set; }
 
-      
+        public void CreateAccount(ProfileController profile)
+        {
+            Account account = AccountsView.GenerateAccount();
+            if (account != null)
+            {
+                AddAccountToUserName(profile.UserName, account);
+                profile.Accounts = AccountData.GetAccountsByUsername(profile.UserName);
+                AccountsView.AccountCreatedSuccessMessage();
+            }
+            else
+            {
+                throw new ArgumentNullException("Something went wrong in creating the account.");
+            }
+        }
+
+        public void AddAccountToUserName(string userName, Account account)
+        {
+            AccountData.AddAccount(userName, account);
+        }
+
         public void ViewAccounts(ProfileController profile)
         {
             profile.Accounts = GetAccountsByUsername(profile);
@@ -39,21 +53,5 @@ namespace BankManagement.Controller
         {
             return profile.Accounts[index - 1];
         }
-
-        public void CreateAccount(ProfileController profile)
-        {
-            Account account = AccountsView.CreateAccount();
-            if (account != null)
-            {
-                AddAccount(profile.UserName, account);
-                profile.Accounts = AccountData.GetAccountsByUsername(profile.UserName);
-                AccountsView.SuccessMessage("Account created Successfully");
-            }
-        }
-
-        public void AddAccount(string userName, Account account)
-        {
-            AccountData.AddAccount(userName, account);
-        }
-}
+    }
 }

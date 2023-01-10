@@ -24,15 +24,9 @@ namespace BankManagement.Controller
             set { Customer.Password = value; }
         }
 
-
         public IList<Account> Accounts
         {
             get; set;
-        }
-
-        public void GetUserDetails(String input, CustomersController customersController)
-        {
-            Customer = customersController.GetUserDetails(input);
         }
 
         public Account GetAccountByID(string id)
