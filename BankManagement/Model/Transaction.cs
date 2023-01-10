@@ -9,16 +9,15 @@ namespace BankManagement.Model
         private static int TransactionID = 1;
         private DateTime _recordedOn;
 
-        public Transaction(Account account, decimal amount, decimal balance, TransactionType transactionType)
+        public Transaction(decimal amount, decimal balance, TransactionTypes transactionType)
         {
             TransactionID = TransactionID + 1;
             TransactionType = transactionType;
             Amount = amount;
-            Account = account;
             _recordedOn = DateTime.Now;
         }
 
-        public TransactionType TransactionType { get; set; }
+        public TransactionTypes TransactionType { get; set; }
 
         public decimal Amount { get; set; }
 
@@ -29,9 +28,9 @@ namespace BankManagement.Model
         public override string ToString()
         {
             return "Transaction ID: " +
-                "Transaction Type: " + TransactionType + TransactionID + "Transaction Time: " +
-                _recordedOn + "Amount: " + Amount +
-                "Balance: " + Balance;
+                "Transaction Type: " + TransactionType + "\nTransaction ID: "+TransactionID + "\nTransaction Time: " +
+                _recordedOn + "\nAmount: " + Amount +
+                "\nBalance: " + Balance;
         }
 
     }

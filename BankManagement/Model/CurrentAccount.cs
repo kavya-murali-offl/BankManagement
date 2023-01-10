@@ -1,5 +1,6 @@
 ﻿using BankManagement.Enums;
 using BankManagement.Models;
+using BankManagement.Utility;
 using System;
 
 namespace BankManagement.Model
@@ -7,21 +8,25 @@ namespace BankManagement.Model
     public class CurrentAccount : Account
     {
         private readonly decimal MIN_BALANCE = 5000;
-        private decimal Charges = 200;
-        private readonly AccountTypesCases ACCOUNT_TYPE = AccountTypesCases.SAVINGS;
+        private readonly decimal CHARGES = 200;
 
-        public void Deposit(decimal amount)
-        {
-            base.Deposit(amount);
+        public CurrentAccount(): base() {
+            InterestRate = AccountInterestRate.CURRENT_INTEREST_RATE;
         }
-
         public void Withdraw(decimal amount)
         {
             bool validTransaction = CheckMinimumBalance(amount);
-            if (validTransaction)
-                Withdraw(amount);
-            else
-                Withdraw(amount - Charges);
+            if (!validTransaction)
+                ChargeForMinBalance();
+            base.Withdraw(amount);
+        }
+
+        public void Transfer(decimal amount, Account toAccount)
+        {
+            bool validTransaction = CheckMinimumBalance(amount);
+            if (!validTransaction)
+                ChargeForMinBalance();
+            base.Transfer(amount, toAccount);
         }
 
         public bool CheckMinimumBalance(decimal amount)
@@ -31,13 +36,19 @@ namespace BankManagement.Model
             return true;
 
         }
-        public decimal MinimumBalance { get { return MIN_BALANCE; } }
 
-        public AccountTypesCases AccountType { get { return ACCOUNT_TYPE; } }
+        public void ChargeForMinBalance()
+        {
+            Balance = Balance - CHARGES;
+        }
+        public decimal MinimumBalance { get { return MIN_BALANCE; } }
 
         public override string ToString()
         {
-            return "Account Type: Current\n"+ "Account ID: " + AccountID + "\nBalance: " + Balance + "\nMinimum Balance: " + MinimumBalance+ "\n========================================\n";
+            return "Account Type: Current" +
+                base.ToString() +
+                "\nMinimum Balance: " + MinimumBalance +
+                "\n========================================\n";
         }
 
     }

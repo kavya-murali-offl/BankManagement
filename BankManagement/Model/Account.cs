@@ -7,37 +7,62 @@ namespace BankManagement.Models
     public abstract class Account
     {
         public Account() { 
-             AccountID = Guid.NewGuid();
-             IList<Transaction> transactions = new List<Transaction>();
-             Transactions = transactions;
-             Balance = 0;
+            AccountID = Guid.NewGuid();
+            IList<Transaction> transactions = new List<Transaction>();
+            Transactions = transactions;
+            Balance = 0;
+            Status = AccountStatus.ACTIVE;
         }
 
         public decimal Balance { get; set; }
 
+        public decimal InterestRate { get; set; }
+
         public Guid AccountID { get; set; } 
+        
+        public AccountStatus Status { get; set; } 
         
         public IList<Transaction> Transactions { get; set; }
 
-        public void Deposit(decimal amount)
+        public bool Deposit(decimal amount)
         {
             Balance += amount;
+            return true;
         }
 
-        public void Withdraw(decimal amount)
+        public bool Withdraw(decimal amount)
         {
             if (Balance > amount)
+            {
                 Balance -= amount;
+                return true;
+            }
             else
-                throw new ArgumentException ("Insufficient Balance");
+            {
+                Console.WriteLine("Insufficient Balance...");
+                return false;
+            }
+                 
         }
 
-        public void Transfer(decimal amount, Account transferAccount)
+        public bool Transfer(decimal amount, Account transferAccount)
         {
-            Withdraw(amount);
-            transferAccount.Deposit(amount);
+            try
+            {
+                Withdraw(amount);
+                transferAccount.Deposit(amount);
+                return true;
+            }catch(Exception ex)
+            {
+                return false;
+            }
         }
-
+        public override string ToString()
+        {
+            return "Account ID: " + AccountID + 
+                "\nAccount Status: " + Status +
+                "\nBalance: " + Balance;
+        }
     }
 
 }
